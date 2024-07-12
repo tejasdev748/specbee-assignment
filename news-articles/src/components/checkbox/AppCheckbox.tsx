@@ -19,6 +19,7 @@ export default function AppCheckbox({
             checked={isChecked}
             onChange={handleChange}
             inputProps={{ "aria-label": label }}
+            sx={{ px: 1 }}
           />
         }
         label={label}
