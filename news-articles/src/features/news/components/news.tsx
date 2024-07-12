@@ -1,6 +1,8 @@
 import { Stack, Box, Typography } from "@mui/material";
 import { NewsProps } from "../../../types";
 
+import "../scss/news.scss";
+
 export default function News({
   image,
   publishDate,
@@ -9,7 +11,7 @@ export default function News({
   category,
 }: NewsProps) {
   return (
-    <Box display="flex" flexDirection={"column"} gap={3.5}>
+    <Box className="news-box" display="flex" flexDirection={"column"} gap={3.5}>
       <Stack direction={"row"} gap={2.5}>
         <Box component="img" src={image} />
         <Stack>
@@ -19,7 +21,11 @@ export default function News({
           </Typography>
         </Stack>
       </Stack>
-      <Typography component="article" variant="body1">
+      <Typography
+        component="article"
+        variant="body1"
+        className="short-article-div"
+      >
         {shortArticle}
       </Typography>
       <Typography variant="subtitle1">{category}</Typography>
