@@ -12,18 +12,19 @@ export default function AppCheckbox({
   };
 
   return (
-    <FormGroup>
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={isChecked}
-            onChange={handleChange}
-            inputProps={{ "aria-label": label }}
-            sx={{ px: 1 }}
-          />
-        }
-        label={label}
-      />
-    </FormGroup>
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={isChecked}
+          onChange={handleChange}
+          inputProps={{ "aria-label": label }}
+          sx={{ pr: 1.25, py: 0, pl: 0 }}
+        />
+      }
+      label={label}
+      sx={{
+        m: 0,
+      }}
+    />
   );
 }
