@@ -9,6 +9,10 @@ declare module "@mui/material/styles" {
       sizeXl: number;
       family: string;
     };
+    color: {
+      text: string;
+      selection: string;
+    };
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
@@ -19,6 +23,10 @@ declare module "@mui/material/styles" {
       sizeLg?: number;
       sizeXl?: number;
       family?: string;
+    };
+    color?: {
+      text?: string;
+      selection?: string;
     };
   }
 }
@@ -31,5 +39,9 @@ export const theme = createTheme({
     sizeLg: 16,
     sizeXl: 18,
     family: "Inter",
+  },
+  color: {
+    text: "#171A1F",
+    selection: "#5113D7",
   },
 });
