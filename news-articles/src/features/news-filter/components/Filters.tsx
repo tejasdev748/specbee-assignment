@@ -1,10 +1,12 @@
 import { Box } from "@mui/material";
 import FilterByType from "./FilterByType";
+import { NEWS_AUTHOR, NEWS_SOURCE } from "../constants";
+import { filterStrings } from "../strings";
 
 export default function Filters() {
   const filterList = [
-    { title: "Category", options: ["1", "2", "3"], selected: [] },
-    { title: "Author", options: ["4", "5", "6"], selected: [] },
+    { title: filterStrings.category, options: [...NEWS_SOURCE], selected: [] },
+    { title: filterStrings.author, options: [...NEWS_AUTHOR], selected: [] },
   ];
 
   const onChangeFilter = (filterTitle: string) => (selected: string[]) => {
