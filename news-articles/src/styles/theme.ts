@@ -14,6 +14,7 @@ declare module "@mui/material/styles" {
       selection: string;
       menuBackground: string;
       appBackground: string;
+      textLight?: string;
     };
   }
   // allow configuration using `createTheme`
@@ -31,6 +32,7 @@ declare module "@mui/material/styles" {
       selection?: string;
       menuBackground?: string;
       appBackground?: string;
+      textLight?: string;
     };
   }
 }
@@ -49,5 +51,6 @@ export const theme = createTheme({
     selection: "#5113D7",
     menuBackground: "#F8F9FA",
     appBackground: "#FFFFFF",
+    textLight: "#565D6D",
   },
 });
