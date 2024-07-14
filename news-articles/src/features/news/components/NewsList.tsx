@@ -1,21 +1,63 @@
-import { NEWS_SOURCE } from "../../news-filter/constants";
+import { useEffect, useState } from "react";
 import News from "./News";
+import { client } from "../../../api/client";
+import { Typography } from "@mui/material";
+import { useAppSelector } from "../../../app/hooks";
+import { RootState } from "../../../app/store";
+import { ArticleDataResponse } from "../../../types";
 
 export default function NewsList() {
-  const newsData = {
-    image: "/news-image.jpg",
-    publishDate: "December 31st 2024",
-    headline:
-      "Huawei Chips Away At Apple, Nvidia: Revenue Nears $100B As China Flexes Tech Muscle Despite US Sanctions - NVIDIA  ( NASDAQ:NVDA )",
-    shortArticle:
-      "In a significant year for Huawei Technologies Co., the company's revenue soared by 9% in 2023, nearing a $100 billion milestone, following a surprising breakthrough in chip technology that challenged Apple Inc. AAPL and U.S. sanctions.",
-    category: NEWS_SOURCE[0],
+  const [articles, setArticles] = useState<ArticleDataResponse[] | undefined>();
+  const {
+    selectedSource,
+    selectedAuthor,
+    isSortByDate,
+    isSortByTitle,
+    sortDateOption,
+    sortTitleOption,
+  } = useAppSelector((state: RootState) => state.newsFilter);
+
+  useEffect(() => {
+    fetchNews();
+  }, [
+    selectedSource,
+    selectedAuthor,
+    isSortByDate,
+    isSortByTitle,
+    sortDateOption,
+    sortTitleOption,
+  ]);
+
+  const fetchNews = async () => {
+    try {
+      const { data } = await client.get(
+        "https://dummy-rest-api.specbee.site/api/v1/news"
+      );
+      let articleData: ArticleDataResponse[] = [...data];
+      if (selectedSource.length > 0)
+        articleData = articleData.filter(({ source }) =>
+          selectedSource.includes(source)
+        );
+
+      if (selectedAuthor.length > 0)
+        articleData = articleData.filter(({ author }) =>
+          selectedAuthor.includes(author)
+        );
+      setArticles(articleData);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  return (
-    <>
-      <News {...newsData} />
-      <News {...newsData} />
-    </>
-  );
+  if ((articles as [])?.length <= 0)
+    return <Typography>No articles</Typography>;
+  return (articles as [])?.map(({ image, source, title, date, body }) => (
+    <News
+      image={image}
+      publishDate={date}
+      headline={title}
+      shortArticle={body}
+      category={source}
+    />
+  ));
 }
