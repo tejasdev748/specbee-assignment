@@ -4,9 +4,10 @@ import { client } from "../../../api/client";
 import { Typography } from "@mui/material";
 import { useAppSelector } from "../../../app/hooks";
 import { RootState } from "../../../app/store";
+import { ArticleDataResponse } from "../../../types";
 
 export default function NewsList() {
-  const [articles, setArticles] = useState<[] | undefined>();
+  const [articles, setArticles] = useState<ArticleDataResponse[] | undefined>();
   const {
     selectedSource,
     selectedAuthor,
@@ -29,10 +30,20 @@ export default function NewsList() {
 
   const fetchNews = async () => {
     try {
-      const response = await client.get(
+      const { data } = await client.get(
         "https://dummy-rest-api.specbee.site/api/v1/news"
       );
-      setArticles(response.data);
+      let articleData: ArticleDataResponse[] = [...data];
+      if (selectedSource.length > 0)
+        articleData = articleData.filter(({ source }) =>
+          selectedSource.includes(source)
+        );
+
+      if (selectedAuthor.length > 0)
+        articleData = articleData.filter(({ author }) =>
+          selectedAuthor.includes(author)
+        );
+      setArticles(articleData);
     } catch (err) {
       console.log(err);
     }
