@@ -53,6 +53,12 @@ export default function NewsList() {
           sortDateOption === "latest" ? true : false
         );
       }
+      if (isSortByTitle) {
+        articleData = getArticlesSortedByTitle(
+          articleData,
+          sortTitleOption === "ascending" ? true : false
+        );
+      }
       setArticles(articleData);
     } catch (err) {
       console.log(err);
@@ -73,6 +79,27 @@ export default function NewsList() {
         ? new Date(date2).getTime() - new Date(date1).getTime()
         : new Date(date1).getTime() - new Date(date2).getTime();
       return result;
+    });
+    return updatedArticles;
+  };
+
+  const getArticlesSortedByTitle = (
+    articles: ArticleDataResponse[],
+    isAscending: boolean
+  ) => {
+    const updatedArticles = [...articles];
+    updatedArticles.sort((article1, article2) => {
+      const { title: title1 } = article1;
+      const { title: title2 } = article2;
+      if (isAscending) {
+        if (title1.toUpperCase() < title2.toUpperCase()) return -1;
+        if (title1.toUpperCase() > title2.toUpperCase()) return 1;
+        return 0;
+      } else {
+        if (title2.toUpperCase() < title1.toUpperCase()) return -1;
+        if (title2.toUpperCase() > title1.toUpperCase()) return 1;
+        return 0;
+      }
     });
     return updatedArticles;
   };
