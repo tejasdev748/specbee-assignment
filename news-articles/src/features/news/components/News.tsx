@@ -1,8 +1,6 @@
 import { Stack, Box, Typography } from "@mui/material";
 import { NewsProps } from "../../../types";
 
-import "../scss/news.scss";
-
 export default function News({
   image,
   publishDate,
