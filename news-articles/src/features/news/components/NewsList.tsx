@@ -2,13 +2,30 @@ import { useEffect, useState } from "react";
 import News from "./News";
 import { client } from "../../../api/client";
 import { Typography } from "@mui/material";
+import { useAppSelector } from "../../../app/hooks";
+import { RootState } from "../../../app/store";
 
 export default function NewsList() {
   const [articles, setArticles] = useState<[] | undefined>();
+  const {
+    selectedSource,
+    selectedAuthor,
+    isSortByDate,
+    isSortByTitle,
+    sortDateOption,
+    sortTitleOption,
+  } = useAppSelector((state: RootState) => state.newsFilter);
 
   useEffect(() => {
     fetchNews();
-  }, []);
+  }, [
+    selectedSource,
+    selectedAuthor,
+    isSortByDate,
+    isSortByTitle,
+    sortDateOption,
+    sortTitleOption,
+  ]);
 
   const fetchNews = async () => {
     try {
