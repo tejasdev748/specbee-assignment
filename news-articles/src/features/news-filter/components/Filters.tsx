@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import FilterByType from "./FilterByType";
-import { NEWS_AUTHOR, NEWS_SOURCE } from "../constants";
+import { NEWS_AUTHOR, NEWS_SORT_BY, NEWS_SOURCE } from "../constants";
 import { filterStrings } from "../strings";
 
 export default function Filters() {
@@ -14,6 +14,11 @@ export default function Filters() {
       title: filterStrings.author,
       options: [...NEWS_AUTHOR],
       selected: [NEWS_AUTHOR[0]],
+    },
+    {
+      title: filterStrings.sortBy,
+      options: [...NEWS_SORT_BY],
+      selected: [NEWS_SORT_BY[0], NEWS_SORT_BY[1]],
     },
   ];
 
