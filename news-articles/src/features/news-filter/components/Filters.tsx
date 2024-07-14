@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import FilterByType from "./FilterByType";
 import { NEWS_AUTHOR, NEWS_SORT_BY, NEWS_SOURCE } from "../constants";
 import { filterStrings } from "../strings";
@@ -9,13 +9,33 @@ import {
   onToggleSortByDate,
   onToggleSortByTitle,
   updateAuthor,
+  updateDateSorting,
   updateSource,
+  updateTitleSorting,
 } from "../../../app/slice";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 export default function Filters() {
-  const { selectedSource, selectedAuthor, isSortByDate, isSortByTitle } =
-    useSelector((state: RootState) => state.newsFilter);
+  const {
+    selectedSource,
+    selectedAuthor,
+    isSortByDate,
+    isSortByTitle,
+    sortDateOption,
+    sortTitleOption,
+  } = useSelector((state: RootState) => state.newsFilter);
   const dispatch = useAppDispatch();
+
+  const handleDateSorting = (event: React.MouseEvent<HTMLDivElement>) => {
+    event?.preventDefault();
+    dispatch(updateDateSorting());
+  };
+
+  const handleTitleSorting = (event: React.MouseEvent<HTMLDivElement>) => {
+    event?.preventDefault();
+    dispatch(updateTitleSorting());
+  };
 
   const filterList = [
     {
@@ -39,6 +59,26 @@ export default function Filters() {
             : isSortByTitle
               ? [NEWS_SORT_BY[1]]
               : [],
+      sortOptions: {
+        [NEWS_SORT_BY[0]]: isSortByDate ? (
+          <Box component={"div"} onClick={handleDateSorting}>
+            {sortDateOption === "latest" ? (
+              <ArrowUpwardIcon />
+            ) : (
+              <ArrowDownwardIcon />
+            )}
+          </Box>
+        ) : null,
+        [NEWS_SORT_BY[1]]: isSortByTitle ? (
+          <Box component={"div"} onClick={handleTitleSorting}>
+            {sortTitleOption === "ascending" ? (
+              <ArrowUpwardIcon />
+            ) : (
+              <ArrowDownwardIcon />
+            )}
+          </Box>
+        ) : null,
+      },
     },
   ];
 

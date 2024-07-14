@@ -7,6 +7,7 @@ export default function FilterByType({
   options,
   selected,
   updateFilter,
+  sortOptions,
 }: FilterTypeProps) {
   const theme = useTheme();
   const onFilterChange = (selectedOption: string) =>
@@ -46,7 +47,11 @@ export default function FilterByType({
               label={optionItem}
               isChecked={selected.includes(optionItem)}
               onAppCheckboxChange={onFilterChange}
-            />
+            >
+              {!sortOptions
+                ? null
+                : sortOptions?.[optionItem as keyof typeof sortOptions]}
+            </AppCheckbox>
           ))}
         </Stack>
       </Stack>

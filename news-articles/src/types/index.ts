@@ -2,6 +2,7 @@ export interface CheckboxProps {
   isChecked: boolean;
   label: string;
   onAppCheckboxChange: (label: string) => void;
+  children?: React.ReactNode;
 }
 export interface NewsProps {
   image: string;
@@ -16,6 +17,7 @@ export interface FilterTypeProps {
   options: string[];
   selected: string[];
   updateFilter: (updatedValues: string[]) => void;
+  sortOptions?: any;
 }
 
 export interface ArticleDataResponse {
