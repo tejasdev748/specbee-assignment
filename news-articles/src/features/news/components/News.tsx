@@ -38,12 +38,26 @@ export default function News({
               fontFamily: theme.font.family,
               color: theme.color.text,
               fontWeight: theme.typography.fontWeightBold,
+              display: { xs: "none", sm: "block" },
             }}
           >
             {headline}
           </Typography>
         </Stack>
       </Stack>
+      <Typography
+        component="article"
+        sx={{
+          fontSize: theme.font.sizeMd,
+          lineHeight: "1.625rem",
+          fontFamily: theme.font.family,
+          color: theme.color.text,
+          fontWeight: theme.typography.fontWeightBold,
+          display: { xs: "block", sm: "none" },
+        }}
+      >
+        {headline}
+      </Typography>
       <Typography
         component="article"
         sx={{
