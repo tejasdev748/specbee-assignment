@@ -1,8 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import filterReducer from "./slice";
 
-export default configureStore({
-  reducer: {
-    newsFilter: filterReducer,
-  },
+const rootReducer = combineReducers({ newsFilter: filterReducer });
+
+const store = configureStore({
+  reducer: rootReducer,
 });
+
+export default store;
+// Infer the type of `store`
+export type AppStore = typeof store;
+// Infer the `AppDispatch` type from the store itself
+export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<typeof rootReducer>;
