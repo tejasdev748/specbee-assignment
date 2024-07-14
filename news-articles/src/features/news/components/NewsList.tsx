@@ -1,21 +1,35 @@
-import { NEWS_SOURCE } from "../../news-filter/constants";
+import { useEffect, useState } from "react";
 import News from "./News";
+import { client } from "../../../api/client";
+import { Typography } from "@mui/material";
 
 export default function NewsList() {
-  const newsData = {
-    image: "/news-image.jpg",
-    publishDate: "December 31st 2024",
-    headline:
-      "Huawei Chips Away At Apple, Nvidia: Revenue Nears $100B As China Flexes Tech Muscle Despite US Sanctions - NVIDIA  ( NASDAQ:NVDA )",
-    shortArticle:
-      "In a significant year for Huawei Technologies Co., the company's revenue soared by 9% in 2023, nearing a $100 billion milestone, following a surprising breakthrough in chip technology that challenged Apple Inc. AAPL and U.S. sanctions.",
-    category: NEWS_SOURCE[0],
+  const [articles, setArticles] = useState<[] | undefined>();
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
+  const fetchNews = async () => {
+    try {
+      const response = await client.get(
+        "https://dummy-rest-api.specbee.site/api/v1/news"
+      );
+      setArticles(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  return (
-    <>
-      <News {...newsData} />
-      <News {...newsData} />
-    </>
-  );
+  if ((articles as [])?.length <= 0)
+    return <Typography>No articles</Typography>;
+  return (articles as [])?.map(({ image, source, title, date, body }) => (
+    <News
+      image={image}
+      publishDate={date}
+      headline={title}
+      shortArticle={body}
+      category={source}
+    />
+  ));
 }
