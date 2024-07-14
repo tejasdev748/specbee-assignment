@@ -12,8 +12,7 @@ import {
 import "./App.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import Filters from "./features/news-filter/components/Filters";
-import News from "./features/news/components/News";
-import { NEWS_SOURCE } from "./features/news-filter/constants";
+import NewsList from "./features/news/components/NewsList";
 const drawerWidth = 240;
 
 function App() {
@@ -46,16 +45,6 @@ function App() {
 
   const handleDrawerToggle = () => {
     setIsDrawerOpen((prevState) => !prevState);
-  };
-
-  const newsData = {
-    image: "/news-image.jpg",
-    publishDate: "December 31st 2024",
-    headline:
-      "Huawei Chips Away At Apple, Nvidia: Revenue Nears $100B As China Flexes Tech Muscle Despite US Sanctions - NVIDIA  ( NASDAQ:NVDA )",
-    shortArticle:
-      "In a significant year for Huawei Technologies Co., the company's revenue soared by 9% in 2023, nearing a $100 billion milestone, following a surprising breakthrough in chip technology that challenged Apple Inc. AAPL and U.S. sanctions.",
-    category: NEWS_SOURCE[0],
   };
 
   return (
@@ -125,8 +114,7 @@ function App() {
             }}
             gap={"3.75rem"}
           >
-            <News {...newsData} />
-            <News {...newsData} />
+            <NewsList />
           </Stack>
         </Stack>
       </Box>
