@@ -36,6 +36,14 @@ export const filterSlice = createSlice({
     onToggleSortByTitle: (state, action) => {
       state.isSortByTitle = action.payload;
     },
+    updateDateSorting: (state) => {
+      state.sortDateOption =
+        state.sortDateOption === "earliest" ? "latest" : "earliest";
+    },
+    updateTitleSorting: (state) => {
+      state.sortTitleOption =
+        state.sortTitleOption === "ascending" ? "descending" : "ascending";
+    },
   },
 });
 
@@ -44,6 +52,8 @@ export const {
   updateAuthor,
   onToggleSortByDate,
   onToggleSortByTitle,
+  updateDateSorting,
+  updateTitleSorting,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;
