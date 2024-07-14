@@ -5,9 +5,11 @@ import { Typography } from "@mui/material";
 import { useAppSelector } from "../../../app/hooks";
 import { RootState } from "../../../app/store";
 import { ArticleDataResponse } from "../../../types";
+import { AppLoader } from "../../../components";
 
 export default function NewsList() {
   const [articles, setArticles] = useState<ArticleDataResponse[] | undefined>();
+  const [shouldShowLoader, setShowLoader] = useState(false);
   const {
     selectedSource,
     selectedAuthor,
@@ -29,6 +31,7 @@ export default function NewsList() {
   ]);
 
   const fetchNews = async () => {
+    setShowLoader(true);
     try {
       const { data } = await client.get(
         "https://dummy-rest-api.specbee.site/api/v1/news"
@@ -46,18 +49,27 @@ export default function NewsList() {
       setArticles(articleData);
     } catch (err) {
       console.log(err);
+    } finally {
+      setShowLoader(false);
     }
   };
 
-  if ((articles as [])?.length <= 0)
-    return <Typography>No articles</Typography>;
-  return (articles as [])?.map(({ image, source, title, date, body }) => (
-    <News
-      image={image}
-      publishDate={date}
-      headline={title}
-      shortArticle={body}
-      category={source}
-    />
-  ));
+  return (
+    <>
+      {(articles as [])?.length <= 0 ? (
+        <Typography>No articles</Typography>
+      ) : (
+        (articles as [])?.map(({ image, source, title, date, body }) => (
+          <News
+            image={image}
+            publishDate={date}
+            headline={title}
+            shortArticle={body}
+            category={source}
+          />
+        ))
+      )}
+      {shouldShowLoader && <AppLoader />}
+    </>
+  );
 }
