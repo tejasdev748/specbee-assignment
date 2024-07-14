@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import "./App.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import Filters from "./features/news-filter/components/Filters";
 const drawerWidth = 240;
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
         },
       })}
     >
-      Box 1
+      <Filters />
     </Box>
   );
 

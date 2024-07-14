@@ -10,3 +10,10 @@ export interface NewsProps {
   shortArticle: string;
   category: string;
 }
+
+export interface FilterTypeProps {
+  title: string;
+  options: string[];
+  selected: string[];
+  updateFilter: (updatedValues: string[]) => void;
+}

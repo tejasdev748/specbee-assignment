@@ -2,11 +2,11 @@ import { createTheme } from "@mui/material";
 declare module "@mui/material/styles" {
   interface Theme {
     font: {
-      sizeXs: number;
-      sizeSm: number;
-      sizeMd: number;
-      sizeLg: number;
-      sizeXl: number;
+      sizeXs: string;
+      sizeSm: string;
+      sizeMd: string;
+      sizeLg: string;
+      sizeXl: string;
       family: string;
     };
     color: {
@@ -19,11 +19,11 @@ declare module "@mui/material/styles" {
   // allow configuration using `createTheme`
   interface ThemeOptions {
     font?: {
-      sizeXs?: number;
-      sizeSm?: number;
-      sizeMd?: number;
-      sizeLg?: number;
-      sizeXl?: number;
+      sizeXs?: string;
+      sizeSm?: string;
+      sizeMd?: string;
+      sizeLg?: string;
+      sizeXl?: string;
       family?: string;
     };
     color?: {
@@ -37,11 +37,11 @@ declare module "@mui/material/styles" {
 
 export const theme = createTheme({
   font: {
-    sizeXs: 10,
-    sizeSm: 12,
-    sizeMd: 14,
-    sizeLg: 16,
-    sizeXl: 18,
+    sizeXs: "0.75rem",
+    sizeSm: "0.875rem",
+    sizeMd: "1rem",
+    sizeLg: "1.25rem",
+    sizeXl: "1.5rem",
     family: "Inter",
   },
   color: {
