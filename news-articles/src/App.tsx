@@ -112,9 +112,22 @@ function App() {
       <Box bgcolor={"#ffffff"} p={{ xs: 3, sm: "5rem" }}>
         <Stack direction={"row"} height={"100%"} gap={{ sm: "2.5rem" }}>
           {!isDrawerOpen && showFilter()}
-          <Box flexGrow={1} sx={{ width: "calc(100% - 17.5rem)" }}>
+          <Stack
+            sx={{
+              width: "calc(100% - 17.5rem)",
+              [theme.breakpoints.down("md")]: {
+                width: "100%",
+              },
+              [`${theme.breakpoints.down("md")} and (orientation: landscape)`]:
+                {
+                  width: "100%",
+                },
+            }}
+            gap={"3.75rem"}
+          >
             <News {...newsData} />
-          </Box>
+            <News {...newsData} />
+          </Stack>
         </Stack>
       </Box>
     </Container>

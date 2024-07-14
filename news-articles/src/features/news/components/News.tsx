@@ -1,4 +1,4 @@
-import { Stack, Box, Typography, useTheme } from "@mui/material";
+import { Stack, Box, Typography, useTheme, Divider } from "@mui/material";
 import { NewsProps } from "../../../types";
 
 export default function News({
@@ -67,6 +67,11 @@ export default function News({
       >
         {category}
       </Typography>
+      <Divider
+        sx={{
+          border: "1px solid #DEE1E6",
+        }}
+      ></Divider>
     </Stack>
   );
 }
