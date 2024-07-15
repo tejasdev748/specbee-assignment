@@ -127,13 +127,14 @@ export default function NewsList() {
       ) : (
         <Stack gap={3}>
           {(activePageArticles as [])?.map(
-            ({ image, source, title, date, body }) => (
+            ({ image, source, title, date, body, author }) => (
               <News
                 image={image}
                 publishDate={date}
                 headline={title}
                 shortArticle={body}
                 category={source}
+                author={author}
               />
             )
           )}

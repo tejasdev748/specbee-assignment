@@ -10,6 +10,7 @@ export interface NewsProps {
   headline: string;
   shortArticle: string;
   category: string;
+  author: string;
 }
 
 export interface FilterTypeProps {
