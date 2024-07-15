@@ -29,3 +29,9 @@ export interface ArticleDataResponse {
   source: string;
   author: string;
 }
+
+export interface PaginationProps {
+  activePage: number;
+  totalPages: number;
+  onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
+}

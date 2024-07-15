@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import News from "./News";
 import { client } from "../../../api/client";
-import { Typography } from "@mui/material";
+import { Typography, Stack, Box } from "@mui/material";
 import { useAppSelector } from "../../../app/hooks";
 import { RootState } from "../../../app/store";
 import { ArticleDataResponse } from "../../../types";
 import { AppLoader } from "../../../components";
+import AppPagination from "../../../components/pagination/AppPagination";
 
 export default function NewsList() {
   const [articles, setArticles] = useState<ArticleDataResponse[] | undefined>();
   const [shouldShowLoader, setShowLoader] = useState(false);
+  const [activePage, setActivePage] = useState(1);
   const {
     selectedSource,
     selectedAuthor,
@@ -104,20 +106,46 @@ export default function NewsList() {
     return updatedArticles;
   };
 
+  const handlePageChange = (
+    _: React.ChangeEvent<unknown>,
+    selectedPage: number
+  ) => {
+    setActivePage(selectedPage);
+  };
+
+  const totalPages = Math.ceil((articles as ArticleDataResponse[])?.length / 5);
+  let activePageArticles: ArticleDataResponse[] = [];
+  activePageArticles = articles?.slice(
+    (activePage - 1) * 5,
+    activePage * 5
+  ) as ArticleDataResponse[];
   return (
     <>
       {(articles as [])?.length <= 0 ? (
         <Typography>No articles</Typography>
       ) : (
-        (articles as [])?.map(({ image, source, title, date, body }) => (
-          <News
-            image={image}
-            publishDate={date}
-            headline={title}
-            shortArticle={body}
-            category={source}
-          />
-        ))
+        <Stack gap={3}>
+          {(activePageArticles as [])?.map(
+            ({ image, source, title, date, body }) => (
+              <News
+                image={image}
+                publishDate={date}
+                headline={title}
+                shortArticle={body}
+                category={source}
+              />
+            )
+          )}
+          {(articles as ArticleDataResponse[])?.length > 0 && (
+            <Stack marginLeft={"auto"}>
+              <AppPagination
+                activePage={activePage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </Stack>
+          )}
+        </Stack>
       )}
       {shouldShowLoader && <AppLoader />}
     </>
