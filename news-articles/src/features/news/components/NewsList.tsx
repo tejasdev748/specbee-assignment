@@ -114,21 +114,28 @@ export default function NewsList() {
   };
 
   const totalPages = Math.ceil((articles as ArticleDataResponse[])?.length / 5);
+  let activePageArticles: ArticleDataResponse[] = [];
+  activePageArticles = articles?.slice(
+    (activePage - 1) * 5,
+    activePage * 5
+  ) as ArticleDataResponse[];
   return (
     <>
       {(articles as [])?.length <= 0 ? (
         <Typography>No articles</Typography>
       ) : (
         <Stack gap={3}>
-          {(articles as [])?.map(({ image, source, title, date, body }) => (
-            <News
-              image={image}
-              publishDate={date}
-              headline={title}
-              shortArticle={body}
-              category={source}
-            />
-          ))}
+          {(activePageArticles as [])?.map(
+            ({ image, source, title, date, body }) => (
+              <News
+                image={image}
+                publishDate={date}
+                headline={title}
+                shortArticle={body}
+                category={source}
+              />
+            )
+          )}
           {(articles as ArticleDataResponse[])?.length > 0 && (
             <Stack marginLeft={"auto"}>
               <AppPagination
