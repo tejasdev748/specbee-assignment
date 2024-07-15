@@ -1,5 +1,6 @@
 import { Stack, Box, Typography, useTheme, Divider } from "@mui/material";
 import { NewsProps } from "../../../types";
+import { MONTHS } from "../../../app/constants";
 
 export default function News({
   image,
@@ -10,6 +11,9 @@ export default function News({
   author,
 }: NewsProps) {
   const theme = useTheme();
+
+  const articeDateObj = new Date(publishDate);
+  const articleDateString = `${MONTHS[articeDateObj.getMonth()]} ${articeDateObj.getDate()},${articeDateObj.getFullYear()}`;
   return (
     <Stack gap={3.5}>
       <Stack direction={"row"} gap={2.5}>
@@ -30,7 +34,7 @@ export default function News({
                 color: theme.color.textLight,
               }}
             >
-              {publishDate}
+              {articleDateString}
             </Typography>
             <Typography
               sx={{
