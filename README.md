@@ -1,4 +1,4 @@
-# npx degit user/project#main my-project
+# React + TypeScript + Vite
 cd specbee-assignment
 
 npm install
