@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import News from "./News";
 import { client } from "../../../api/client";
-import { Typography } from "@mui/material";
+import { Typography, Stack, Box } from "@mui/material";
 import { useAppSelector } from "../../../app/hooks";
 import { RootState } from "../../../app/store";
 import { ArticleDataResponse } from "../../../types";
 import { AppLoader } from "../../../components";
+import AppPagination from "../../../components/pagination/AppPagination";
 
 export default function NewsList() {
   const [articles, setArticles] = useState<ArticleDataResponse[] | undefined>();
@@ -109,15 +110,22 @@ export default function NewsList() {
       {(articles as [])?.length <= 0 ? (
         <Typography>No articles</Typography>
       ) : (
-        (articles as [])?.map(({ image, source, title, date, body }) => (
-          <News
-            image={image}
-            publishDate={date}
-            headline={title}
-            shortArticle={body}
-            category={source}
-          />
-        ))
+        <Stack gap={3}>
+          {(articles as [])?.map(({ image, source, title, date, body }) => (
+            <News
+              image={image}
+              publishDate={date}
+              headline={title}
+              shortArticle={body}
+              category={source}
+            />
+          ))}
+          {(articles as ArticleDataResponse[])?.length > 0 && (
+            <Stack marginLeft={"auto"}>
+              <AppPagination />
+            </Stack>
+          )}
+        </Stack>
       )}
       {shouldShowLoader && <AppLoader />}
     </>
