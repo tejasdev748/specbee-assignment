@@ -16,11 +16,11 @@ export default function News({
         <Box
           component="img"
           src={image}
-          width={"5.625rem"}
+          minWidth={"5.625rem"}
           height={"4.5rem"}
           borderRadius={2}
         />
-        <Stack>
+        <Stack sx={{ flexGrow: 1 }}>
           <Stack direction={{ xs: "column", sm: "row" }}>
             <Typography
               sx={{
