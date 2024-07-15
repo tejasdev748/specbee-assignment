@@ -123,7 +123,14 @@ export default function NewsList() {
   return (
     <>
       {(articles as [])?.length <= 0 ? (
-        <Typography>No articles</Typography>
+        <Box
+          flexGrow={1}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Typography>No articles</Typography>
+        </Box>
       ) : (
         <Stack gap={3}>
           {(activePageArticles as [])?.map(
