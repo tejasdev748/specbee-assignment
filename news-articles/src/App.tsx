@@ -1,35 +1,125 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import {
+  AppBar,
+  Box,
+  Container,
+  Drawer,
+  IconButton,
+  Stack,
+  Toolbar,
+  useTheme,
+} from "@mui/material";
+import "./App.css";
+import MenuIcon from "@mui/icons-material/Menu";
+import Filters from "./features/news-filter/components/Filters";
+import NewsList from "./features/news/components/NewsList";
+const drawerWidth = 240;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const theme = useTheme();
+
+  const showFilter = () => (
+    <Box
+      flexGrow={1}
+      width={{ md: "17.5rem" }}
+      borderRadius={{ md: "0.325rem" }}
+      boxShadow={{
+        md: "0px 0px 2px rgba(23, 26, 31, 0.12), 0px 0px 1px rgba(23, 26, 31, 0.07);",
+      }}
+      px={1.5}
+      py={2}
+      sx={(theme) => ({
+        display: "block",
+        [theme.breakpoints.down("md")]: {
+          display: isDrawerOpen ? "block" : "none",
+        },
+        [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
+          display: isDrawerOpen ? "block" : "none",
+        },
+      })}
+    >
+      <Filters />
+    </Box>
+  );
+
+  const handleDrawerToggle = () => {
+    setIsDrawerOpen((prevState) => !prevState);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Container
+      maxWidth={false}
+      sx={{ height: "100%", bgcolor: theme.color.appBackground }}
+      disableGutters
+    >
+      <AppBar
+        component="nav"
+        position="sticky"
+        sx={(theme) => ({
+          display: "none",
+          [theme.breakpoints.down("md")]: {
+            display: "block",
+          },
+          [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
+            display: "block",
+          },
+          height: "3.5rem",
+          bgcolor: theme.color.appBackground,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="isDrawerOpen drawer"
+            onClick={handleDrawerToggle}
+          >
+            <MenuIcon sx={{ color: theme.color.selection }} />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <nav>
+        <Drawer
+          open={isDrawerOpen}
+          onClose={handleDrawerToggle}
+          sx={(theme) => ({
+            [theme.breakpoints.down("md")]: {
+              display: "block",
+            },
+            [`${theme.breakpoints.down("md")} and (orientation: landscape)`]: {
+              display: "block",
+            },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          })}
+        >
+          {showFilter()}
+        </Drawer>
+      </nav>
+      <Box bgcolor={"#ffffff"} p={{ xs: 3, sm: "5rem" }}>
+        <Stack direction={"row"} height={"100%"} gap={{ sm: "2.5rem" }}>
+          {!isDrawerOpen && showFilter()}
+          <Stack
+            sx={{
+              width: "calc(100% - 17.5rem)",
+              [theme.breakpoints.down("md")]: {
+                width: "100%",
+              },
+              [`${theme.breakpoints.down("md")} and (orientation: landscape)`]:
+                {
+                  width: "100%",
+                },
+            }}
+            gap={"3.75rem"}
+          >
+            <NewsList />
+          </Stack>
+        </Stack>
+      </Box>
+    </Container>
+  );
 }
 
-export default App
+export default App;
