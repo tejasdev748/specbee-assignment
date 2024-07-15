@@ -61,6 +61,7 @@ export default function NewsList() {
           sortTitleOption === "ascending" ? true : false
         );
       }
+      setActivePage(1);
       setArticles(articleData);
     } catch (err) {
       console.log(err);
