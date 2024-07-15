@@ -7,6 +7,7 @@ export default function News({
   headline,
   shortArticle,
   category,
+  author,
 }: NewsProps) {
   const theme = useTheme();
   return (
@@ -20,16 +21,30 @@ export default function News({
           borderRadius={2}
         />
         <Stack>
-          <Typography
-            sx={{
-              fontSize: theme.font.sizeXs,
-              lineHeight: theme.font.sizeLg,
-              fontFamily: theme.font.family,
-              color: theme.color.textLight,
-            }}
-          >
-            {publishDate}
-          </Typography>
+          <Stack direction={{ xs: "column", sm: "row" }}>
+            <Typography
+              sx={{
+                fontSize: theme.font.sizeXs,
+                lineHeight: theme.font.sizeLg,
+                fontFamily: theme.font.family,
+                color: theme.color.textLight,
+              }}
+            >
+              {publishDate}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: theme.font.sizeXs,
+                lineHeight: theme.font.sizeLg,
+                fontFamily: theme.font.family,
+                color: theme.color.textLight,
+                marginLeft: { xs: "0", sm: "auto" },
+              }}
+            >
+              {category}
+            </Typography>
+          </Stack>
+
           <Typography
             component="article"
             sx={{
@@ -79,7 +94,7 @@ export default function News({
           fontWeight: theme.typography.fontWeightBold,
         }}
       >
-        {category}
+        {author}
       </Typography>
       <Divider
         sx={{
