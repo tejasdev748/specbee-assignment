@@ -11,6 +11,7 @@ import AppPagination from "../../../components/pagination/AppPagination";
 export default function NewsList() {
   const [articles, setArticles] = useState<ArticleDataResponse[] | undefined>();
   const [shouldShowLoader, setShowLoader] = useState(false);
+  const [activePage, setActivePage] = useState(1);
   const {
     selectedSource,
     selectedAuthor,
@@ -105,6 +106,14 @@ export default function NewsList() {
     return updatedArticles;
   };
 
+  const handlePageChange = (
+    _: React.ChangeEvent<unknown>,
+    selectedPage: number
+  ) => {
+    setActivePage(selectedPage);
+  };
+
+  const totalPages = Math.ceil((articles as ArticleDataResponse[])?.length / 5);
   return (
     <>
       {(articles as [])?.length <= 0 ? (
@@ -122,7 +131,11 @@ export default function NewsList() {
           ))}
           {(articles as ArticleDataResponse[])?.length > 0 && (
             <Stack marginLeft={"auto"}>
-              <AppPagination />
+              <AppPagination
+                activePage={activePage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
             </Stack>
           )}
         </Stack>

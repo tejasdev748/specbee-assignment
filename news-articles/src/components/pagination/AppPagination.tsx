@@ -1,10 +1,16 @@
 import { Pagination, useTheme } from "@mui/material";
+import { PaginationProps } from "../../types";
 
-function AppPagination() {
+function AppPagination({
+  activePage,
+  totalPages,
+  onPageChange,
+}: PaginationProps) {
   const theme = useTheme();
   return (
     <Pagination
-      count={3}
+      page={activePage}
+      count={totalPages}
       sx={{
         "& .MuiPaginationItem-page": {
           fontSize: theme.font.sizeSm,
@@ -12,11 +18,16 @@ function AppPagination() {
           fontWeight: theme.typography.fontWeightBold,
           fontFamily: theme.font.family,
         },
-        "&  .Mui-selected": {
+        "& .MuiButtonBase-root.MuiPaginationItem-root.Mui-selected": {
+          background: "#1E2128",
+          color: "#FFFFFF",
+        },
+        "& .MuiButtonBase-root.MuiPaginationItem-root.Mui-selected:hover": {
           background: "#1E2128",
           color: "#FFFFFF",
         },
       }}
+      onChange={onPageChange}
     />
   );
 }
