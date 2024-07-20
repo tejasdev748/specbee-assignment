@@ -1,6 +1,5 @@
 import {
   FormControlLabel,
-  FormGroup,
   Box,
   Stack,
   useTheme,

@@ -1,7 +1,7 @@
 export interface Request {
   method: string;
   body: string;
-  headers: Record<string, any>;
+  headers: Record<string, string>;
 }
 
 export async function client(endpoint: string, request: Partial<Request> = {}) {
