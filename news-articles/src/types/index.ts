@@ -18,7 +18,7 @@ export interface FilterTypeProps {
   options: string[];
   selected: string[];
   updateFilter: (updatedValues: string[]) => void;
-  sortOptions?: any;
+  sortOptions?: Record<string,React.ReactNode>;
 }
 
 export interface ArticleDataResponse {
