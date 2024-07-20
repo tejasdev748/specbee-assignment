@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import News from "./News";
 import { client } from "../../../api/client";
 import { Typography, Stack, Box } from "@mui/material";
@@ -21,18 +21,7 @@ export default function NewsList() {
     sortTitleOption,
   } = useAppSelector((state: RootState) => state.newsFilter);
 
-  useEffect(() => {
-    fetchNews();
-  }, [
-    selectedSource,
-    selectedAuthor,
-    isSortByDate,
-    isSortByTitle,
-    sortDateOption,
-    sortTitleOption,
-  ]);
-
-  const fetchNews = async () => {
+  const fetchNews = useCallback(async () => {
     setShowLoader(true);
     try {
       const { data } = await client.get(
@@ -68,7 +57,18 @@ export default function NewsList() {
     } finally {
       setShowLoader(false);
     }
-  };
+  },[selectedSource,
+    selectedAuthor,
+    isSortByDate,
+    isSortByTitle,
+    sortDateOption,
+    sortTitleOption])
+
+  useEffect(() => {
+    fetchNews();
+  }, [
+    fetchNews
+  ]);
 
   const getArticlesSortedByDate = (
     articles: ArticleDataResponse[],
